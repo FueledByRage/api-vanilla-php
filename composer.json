@@ -1,0 +1,23 @@
+{
+    "name": "api/php-using-tdd",
+    "description": "A php api using SOLID",
+    "type": "api",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Api\\PhpUsingTdd\\": "src/"
+        }
+    },
+    "scripts": {
+        "tests": "vendor/bin/phpunit"
+    },
+    "authors": [
+        {
+            "name": "Erik",
+            "email": "erkmgwr@gmail.com"
+        }
+    ]
+}
