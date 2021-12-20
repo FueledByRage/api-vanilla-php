@@ -17,7 +17,7 @@ class Router{
     public function GET($path, $controller){
         $this->routes['GET'][$path] = $controller;    
     }
-
+    
     public function POST($path, $controller){
         $this->routes['POST'][$path] = $controller;    
     }

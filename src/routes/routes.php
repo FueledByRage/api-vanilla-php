@@ -71,11 +71,10 @@ $router->POST('/post/register', function($req, $res){
         $body = $req->body();
         if(!checkKeys($body, ['body', 'token'])) throw new Exception('Missing credentials', 406);    
         $user = $JWTProvider->decript($body['token'])->{'username'};
-        
         $post = new Post($user, $body['body'], date('Y-m-d H:i:s'));
-    
         $PostMysql = new PostMysql(getConnection());
         $PostMysql->save($post);
+        die();
     }catch(Exception $e){
         $res->status($e->getCode());
         $res->send(['message' => $e->getMessage()]);
