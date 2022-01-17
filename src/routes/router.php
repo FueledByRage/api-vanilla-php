@@ -28,10 +28,12 @@ class Router{
             try{
                 $req = new Request;
                 $res = new Response;
+                $jwt = new JWT();
                 $explodedURL = $this->urlHandler->removeBlank($explodedURL);
                 $explodedURL = $this->urlHandler->removeApi($explodedURL);
                 $url = $this->urlHandler->getRoute($explodedURL);
-                !array_key_exists($url, $this->routes[$method]) ? throw new Exception("Route not found", 404) : $this->routes[$method][$url]($req, $res);
+                !array_key_exists($url, $this->routes[$method]) ? throw new Exception("Route not found", 404) : 
+                $this->routes[$method][$url]->execute($req, $res, $jwt);
             }catch(Exception $e){
                 http_response_code($e->getCode());
                 echo json_encode(['error' =>$e->getMessage()]);

@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+    php:
+      command: bash -c "cd /usr/app && php -S 0.0.0.0:8000 -t public/"
+      volumes:
+      - ./src:/usr/app
+      image: php
+      
+      ports:
+      - "8000:8000"

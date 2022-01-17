@@ -20,6 +20,7 @@ class PostMysql implements IPost{
         }catch(Exception $e){
             http_response_code(500);
             echo $e->getMessage();
+            die();
         }
     }
     function getAll($author){

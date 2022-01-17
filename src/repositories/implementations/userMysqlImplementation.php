@@ -17,8 +17,7 @@ class UserMYSQL implements iUser{
             $query->bindValue(":email", $user->email);
             $query->bindValue(":pass", $user->pass);
             $query->bindValue(":about", $user->about);
-            $query->execute();
-            die();
+            return $query->execute();
         }catch(Exception $e){
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
