@@ -6,6 +6,7 @@ class User{
         public string $username,
         public string $email,
         public string $pass,
-        public string $about
+        public string $about,
+        public string $profileURL = ''
         ){}
 }

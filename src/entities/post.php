@@ -6,6 +6,7 @@ class Post{
         public $author,
         public $body,
         public $date,
+        public $videoUrl
     ){}
 
 }

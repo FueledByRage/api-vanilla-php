@@ -13,9 +13,10 @@ class CreatePostController{
     function execute($req, $res, $jwt){
         try{
             $body = $req->body();
-            var_dump($body);
             if(!$this->checkKeys->execute($body, ['body', 'token'])) throw new Exception('Missing credentials', 406);    
             $user = $jwt->decript($body['token'])->{'username'};
+            $videoName = $req->getFile('video');
+            $videoUrl = 'http://localhost:8000/uploads/videos/'.$videoName;
             $post = new Post($user, $body['body'], date('Y-m-d H:i:s'));
             $this->create->save($post);
             die();
