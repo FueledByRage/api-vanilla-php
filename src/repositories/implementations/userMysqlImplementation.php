@@ -18,7 +18,7 @@ class UserMYSQL implements iUser{
             $query->bindValue(":pass", $user->pass);
             $query->bindValue(":about", $user->about);
             return $query->execute();
-        }catch(Exception $e){
+        }catch(\Throwable $th){
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
             die();
@@ -36,14 +36,22 @@ class UserMYSQL implements iUser{
         return $data->fetch();
     }
     function getByEmail(string $email){
-        $connection = getConnection();
-        $sql = 'SELECT * FROM Users WHERE email = :email';
-        $data = $connection->prepare($sql);
-        $data->bindValue(":email", $email);
-        $data->execute();
-        if($data->rowCount() == 0){
-            return null;   
+        try {
+            $connection = getConnection();
+            $sql = 'SELECT * FROM Users WHERE email = :email';
+            $data = $connection->prepare($sql);
+            $data->bindValue(":email", $email);
+            $data->execute();
+            if($data->rowCount() == 0){
+                return null;   
+            }
+            return $data->fetch();
+        } catch (\Throwable $th) {
+            //throw $th;
+            http_response_code(500);
+            echo $th;
+            //echo json_decode(json_encode(['error' => $th]));
+            die();
         }
-        return $data->fetch();
     }
 }

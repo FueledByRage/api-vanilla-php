@@ -6,11 +6,12 @@ class Request{
     }
 
     function setAtributes(){
+        $params = [];
         foreach($_SERVER as $key => $value){
             $this->$key = $value;
         }
         
-        parse_str($this->getParams('http://localhost:8000/'.$_SERVER['REQUEST_URI']), $params);
+        if($_SERVER['REQUEST_METHOD'] == 'GET')parse_str($this->getParams('http://localhost:8000/'.$_SERVER['REQUEST_URI']), $params);
 
         $this->params = $params;
     }
@@ -22,6 +23,7 @@ class Request{
     function body(){
         
         $body = [];
+
 
         if($this->REQUEST_METHOD == 'POST'){
             

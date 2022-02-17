@@ -21,3 +21,8 @@ $router->POST('/user/register', $createController);
 $router->POST('/post/register', $createPostController );
 
 $router->POST('/login', $loginController);
+
+$router->POST('/post/test', function($req, $res, $jwt){
+    //$file = $req->getFile('file');
+    //echo $file['name'];
+});

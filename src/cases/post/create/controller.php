@@ -19,6 +19,8 @@ class CreatePostController{
             $videoUrl = 'http://localhost:8000/uploads/videos/'.$videoName;
             $post = new Post($user, $body['body'], date('Y-m-d H:i:s'));
             $this->create->save($post);
+            $res->status(201);
+            $res->send(['post' => $post]);
             die();
         }catch(Exception $e){
             $res->status($e->getCode());

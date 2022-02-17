@@ -1,11 +1,19 @@
 version: "3"
 
 services:
-    php:
-      command: bash -c "cd /usr/app && php -S 0.0.0.0:8000 -t public/"
-      volumes:
-      - ./src:/usr/app
-      image: php
-      
+    databasesql:
+      image: mysql:latest
+      restart: always
       ports:
-      - "8000:8000"
+      - "3306:3306"
+      volumes:
+        - ~src/db/init:/docker-entrypoint-initdb.d
+        - ~src/db/data:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: clipsproject
+        MYSQL_DATABASE: PHPCLIPS
+    adminer:
+      image: adminer:latest
+      restart: always
+      ports:
+      - 8080:8080

@@ -15,7 +15,7 @@ class PostMysql implements IPost{
             $query = $this->connection->prepare($sql);
             $query->bindValue(":author", $post->author);
             $query->bindValue(":body", $post->body);
-            $query->bindValue(":date", $post->date);
+            $query->bindValue(":date", $post->created_date);
             $query->bindValue(":videoUrl", $post->videoUrl);
             $query->execute();
         }catch(Exception $e){

@@ -13,11 +13,9 @@ class GetController{
         try{
             $username = array_key_exists('username', $req->params) ? $req->params['username'] : null;
             if($username == null){
-                $res->status(406);
-                $res->send(['message' => 'Missing credentials']);
+                throw new Exception('Missing credentials', 406);
             }
             $user = $this->getUser->get($username);
-            if($user == null) throw new Exception('User not found', 404);
             $res->send($user);
         }catch(Exception $e){  
             $res->status($e->getCode());
