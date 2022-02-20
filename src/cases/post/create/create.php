@@ -8,6 +8,9 @@ class CreatePost{
         public iPost $postImplementation
     ){}
     function save(Post $post){
-        $this->postImplementation->save($post);
+        
+        $saved = $this->postImplementation->save($post);
+        
+        if(!$saved) throw new Exception('Error saving post.', 500);
     }
 }

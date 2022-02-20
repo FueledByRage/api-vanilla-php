@@ -22,14 +22,14 @@ class CreatePostController{
 
             if(!$file) throw new Exception('Vídeo not found.', 406);
 
-            $upload = move_uploaded_file($file['name'], 'src\uploads\videos');
+            $upload = move_uploaded_file($file['tmp_name'], realpath('./uploads/videos').'/'.$file['name']);
 
             if(!$upload) throw new Exception('Error saving vídeo', 406);
-            
+
             $videoName = $file['name'];
             $videoUrl = 'http://localhost:8000/uploads/videos/'.$videoName;
             
-            $post = new Post($user, $body['body'], date('Y-m-d H:i:s'));
+            $post = new Post($user, $body['body'], date('Y-m-d H:i:s'), $videoUrl);
             
             $this->create->save($post);
             

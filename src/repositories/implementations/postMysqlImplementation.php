@@ -11,13 +11,15 @@ class PostMysql implements IPost{
 
     function save(Post $post){
         try{
-            $sql = 'INSERT INTO Posts (author, body, date, videoUrl) VALUES (:author, :body, :date, :videoUrl);';
+            $sql = 'INSERT INTO Posts (author, body, created_at, videoUrl) VALUES (:author, :body, :date, :videoUrl);';
+            
             $query = $this->connection->prepare($sql);
             $query->bindValue(":author", $post->author);
             $query->bindValue(":body", $post->body);
             $query->bindValue(":date", $post->created_date);
             $query->bindValue(":videoUrl", $post->videoUrl);
-            $query->execute();
+
+            return $query->execute();
         }catch(Exception $e){
             http_response_code(500);
             echo $e->getMessage();
