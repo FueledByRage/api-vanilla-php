@@ -39,6 +39,7 @@ class Request{
     }
     function getFile(string $fileName){
         $file = $_FILES[$fileName];
+
         if($file) return $file;
         return null;
     }

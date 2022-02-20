@@ -11,16 +11,18 @@ class UserMYSQL implements iUser{
 
     function save(User $user){
         try{
-            $sql = 'INSERT INTO Users (username, email, pass, about) VALUES (:username, :email, :pass, :about);';
+            $sql = 'INSERT INTO Users (username, email, password, about) VALUES (:username, :email, :pass, :about);';
             $query = $this->connection->prepare($sql);
+
             $query->bindValue(":username", $user->username);
             $query->bindValue(":email", $user->email);
-            $query->bindValue(":pass", $user->pass);
+            $query->bindValue(":pass", $user->password);
             $query->bindValue(":about", $user->about);
+
             return $query->execute();
         }catch(\Throwable $th){
             http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
+            echo json_encode(['error' => $th->getMessage()]);
             die();
         }
     }

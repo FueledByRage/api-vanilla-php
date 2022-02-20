@@ -10,7 +10,7 @@ class Login{
     function execute(string $email, string $password){
         $user = $this->userImplementation->getByEmail($email);
         if($user == null) throw new Exception("User not found", 404);
-        if($user['pass'] == $password){
+        if($user['password'] == $password){
             return $user;
         }
         throw new Exception('Wrong email or password.', 401);

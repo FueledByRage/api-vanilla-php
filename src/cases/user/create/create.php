@@ -10,6 +10,7 @@ class CreateUser{
     function save(User $user){
         $checkUser = $this->userImplementation->getByEmail($user->email);
         if($checkUser != null) throw new Exception('User already registered', 401);
-        return $this->$userImplementation->save($user);
+        
+        return $this->userImplementation->save($user);
     }
 }
