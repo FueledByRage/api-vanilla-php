@@ -23,7 +23,6 @@ class Router{
     }
     
     function routeHandler($explodedURL, $method){
-        
         if($explodedURL[1] == 'api'){
             try{
                 $req = new Request;

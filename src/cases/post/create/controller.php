@@ -13,10 +13,12 @@ class CreatePostController{
     function execute($req, $res, $jwt){
         try{
             $body = $req->body();
-            
-            if(!$this->checkKeys->execute($body, ['body', 'token'])) throw new Exception('Missing credentials', 406);    
-            
-            $user = $jwt->decript($body['token'])->{'username'};
+
+            $token = getallheaders()['token'];
+
+            if(!$this->checkKeys->execute($body, ['body']) || !$token) throw new Exception('Missing credentials', 406);    
+
+            $user = $jwt->decript($token)->{'username'};
             
             $file = $req->getFile('file');
 

@@ -12,6 +12,7 @@ class loginController{
     function execute($req, $res, $jwt){
         try{
             $body = $req->body();
+
             if(!$this->checkKeys->execute($body, ['password', 'email'])){
                 $res->status(406);
                 $res->send(['message' => 'Missing param.']);
