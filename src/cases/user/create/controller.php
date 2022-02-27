@@ -16,6 +16,7 @@ class Controller{
             if(!$this->checkKeys->execute($body, ['username', 'email', 'password', 'about'])){
                 throw new Exception('Missing credentials', 406);
             }
+
             $user = new User($body['username'], $body['email'], $body['password'], $body['about']);
             
             $save = $this->create->save($user);

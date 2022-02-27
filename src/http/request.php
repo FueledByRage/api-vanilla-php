@@ -24,7 +24,6 @@ class Request{
         
         $body = [];
 
-        var_dump(file_get_contents('php://input'));
         //To request using json body
         if(file_get_contents('php://input')) return json_decode(file_get_contents('php://input'), true);
 

@@ -9,11 +9,12 @@ class PostMysql implements IPost{
         private PDO $connection,
     ){}
 
-    function save(Post $post){
+    function save(Post $post, $author_id){
         try{
-            $sql = 'INSERT INTO Posts (author, body, created_at, videoUrl) VALUES (:author, :body, :date, :videoUrl);';
+            $sql = 'INSERT INTO Posts (author_id, author,  body, created_at, videoUrl) VALUES (:author_id, :author, :body, :date, :videoUrl);';
             
             $query = $this->connection->prepare($sql);
+            $query->bindValue(":author_id", $author_id);
             $query->bindValue(":author", $post->author);
             $query->bindValue(":body", $post->body);
             $query->bindValue(":date", $post->created_date);

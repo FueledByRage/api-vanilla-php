@@ -33,11 +33,10 @@ class CreatePostController{
             
             $post = new Post($user, $body['body'], date('Y-m-d H:i:s'), $videoUrl);
             
-            $this->create->save($post);
+            if(!$this->create->save($post)) throw new Exception('Error saving post', 500);
             
             $res->status(201);
             $res->send(['post' => $post]);
-            die();
         }catch(Exception $e){
             $res->status($e->getCode());
             $res->send(['message' => $e->getMessage()]);
