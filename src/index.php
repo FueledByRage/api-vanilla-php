@@ -4,11 +4,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Max-Age: *');
-header('Content-Type: *');
+header('Content-Type: application/json;charset=utf-8');
 
 
 $URI = $_SERVER['REQUEST_URI'];
 $httpMethod = $_SERVER['REQUEST_METHOD'];
+
 
 
 $explodedURI = explode('/', $URI);

@@ -20,7 +20,7 @@ ENDPOINT | METHOD | PARAMS | EXPECTED SUCCESS | EXPECTED ERROR
 
 ENDPOINT | METHOD | PARAMS | EXPECTED SUCCESS | EXPECTED ERROR
 ---------|--------|--------|------------------|---------------|
-/post/register | POST | body, token | http response status 200 | error status code {message: message error}
+/post/register | POST | body, token, file | http response status 200 | error status code {message: message error}
 /post/?author | GET | author username | posts from the given author | error status code {message: message error}
 
 ## login

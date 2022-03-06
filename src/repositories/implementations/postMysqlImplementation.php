@@ -23,7 +23,7 @@ class PostMysql implements IPost{
             return $query->execute();
         }catch(Exception $e){
             http_response_code(500);
-            echo $e->getMessage();
+            echo $e->get_message();
             die();
         }
     }
@@ -38,7 +38,9 @@ class PostMysql implements IPost{
             }
             return $data->fetchAll();
         }catch(Exception $e){
+            http_response_code(500);
             echo $e->getMessage();
+            die();
         }
     }
 }
