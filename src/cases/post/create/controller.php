@@ -2,15 +2,17 @@
 require_once './cases/post/create/create.php';
 require_once './entities/post.php';
 require_once './utils/checkKeys.php';
+require_once './providers/jwt/jwt.php';
 
 class CreatePostController{
 
     function __construct(
         public CreatePost $create,
-        public CheckKeys $checkKeys
+        public CheckKeys $checkKeys,
+        public JWT $jwt
     ){}
 
-    function execute($req, $res, $jwt){
+    function execute($req, $res){
         try{
             $body = $req->body();
 
@@ -18,7 +20,7 @@ class CreatePostController{
 
             if(!$this->checkKeys->execute($body, ['body']) || !$token) throw new Exception('Missing credentials', 406);    
 
-            $user = $jwt->decript($token)->{'username'};
+            $user = $this->jwt->decript($token)->{'username'};
             
             $file = $req->getFile('file');
 

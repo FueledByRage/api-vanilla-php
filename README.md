@@ -1,3 +1,11 @@
+# How to use:
+
+Start the server running the PHP -S command on the src directory: 
+
+```bash
+    php -S 127.0.0.1:8000
+```
+
 # About: 
 It's an API built in vanilla PHP trying to apply some SOLID concepts. Its purpose is to increase my skills on a new language as apply server concepts without frameworks.
 

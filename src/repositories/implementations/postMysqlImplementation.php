@@ -27,6 +27,20 @@ class PostMysql implements IPost{
             die();
         }
     }
+
+    function get($author, $id){
+        $sql = 'SELECT * FROM POSTS WHERE author = :author AND _id == :id';
+        $data = $this->connection->prepare($sql);
+        $data->bindValue(":author", $author);
+        $data->bindValue(":id", $id);
+        $data->execute();
+        if($data->rowCount() == 0){
+            throw new Exception("Posts not found for this user.", 404);
+        }
+        return $data->fetchAll();
+    }
+
+
     function getAll($author){
         try{
             $sql = 'SELECT * FROM Posts WHERE author = :author';
@@ -42,5 +56,19 @@ class PostMysql implements IPost{
             echo $e->getMessage();
             die();
         }
+    }
+
+    function delete($id, $username){
+        $sql = 'DELETE FROM Posts Where id = :id AND author = :author';
+         
+        $executeDelete = $this->connection->prepare($sql);
+        $executeDelete->bindValue(":id", $id);
+        $executeDelete->bindValue(":author", $username);
+        $stmn = $executeDelete->execute(); 
+        if($executeDelete->rowCount() > 0){
+            return true;
+        }
+
+        throw new Exception('Error deleting post', 500);
     }
 }

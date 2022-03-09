@@ -2,15 +2,17 @@
 require_once './cases/user/create/create.php';
 require_once './entities/user.php';
 require_once './utils/checkKeys.php';
+require_once './providers/jwt/jwt.php';
 
 class Controller{
 
     function __construct(
         public CreateUser $create,
-        public CheckKeys $checkKeys
+        public CheckKeys $checkKeys,
+        public JWT $jwt,
     ){}
 
-    function execute($req, $res, $jwt){
+    function execute($req, $res){
         try{
             $body = $req->body();
             if(!$this->checkKeys->execute($body, ['username', 'email', 'password', 'about'])){
@@ -23,7 +25,7 @@ class Controller{
             
             if(!$save) throw new Exception('Error saving user', 500);
 
-            $token = $jwt->provider(['typ' => 'JWT', 'alg' => 'HS256'],['username' => $user->username]);
+            $token = $this->jwt->provider(['typ' => 'JWT', 'alg' => 'HS256'],['username' => $user->username]);
             $res->send(['token' => $token, 'user' => $user->username]);
         }catch(Exception $e){
             $res->status($e->getCode());

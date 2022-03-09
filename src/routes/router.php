@@ -21,13 +21,16 @@ class Router{
     public function POST($path, $controller){
         $this->routes['POST'][$path] = $controller;    
     }
+
+    public function DELETE($path, $controller){
+        $this->routes['DELETE'][$path] = $controller;    
+    }
     
     function routeHandler($explodedURL, $method){
         if($explodedURL[1] == 'api'){
             try{
                 $req = new Request;
                 $res = new Response;
-                $jwt = new JWT();
 
                 $explodedURL = $this->urlHandler->removeBlank($explodedURL);
                 $explodedURL = $this->urlHandler->removeApi($explodedURL);
@@ -36,7 +39,7 @@ class Router{
 
                 !array_key_exists($url, $this->routes[$method]) ? throw new Exception("Route not found", 404) : 
 
-                $this->routes[strtoupper($method)][$url]->execute($req, $res, $jwt);
+                $this->routes[strtoupper($method)][$url]->execute($req, $res);
             }catch(Exception $e){
                 http_response_code($e->getCode());
                 echo json_encode(['error' =>$e->getMessage()]);

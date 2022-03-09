@@ -5,7 +5,6 @@ require_once './repositories/implementations/postMysqlImplementation.php';
 require_once './providers/database/bd.php';
 
 
-
 $postImplementation = new PostMysql(getConnection());
 $get = new GetPosts($postImplementation);
 $getPostsController = new GetPostsController($get);

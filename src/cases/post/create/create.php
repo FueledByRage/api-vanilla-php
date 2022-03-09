@@ -9,6 +9,7 @@ class CreatePost{
         public iPost $postImplementation,
         public IUser $userImplementation 
     ){}
+    
     function save(Post $post){
         
         $user = $this->userImplementation->get($post->author);

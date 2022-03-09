@@ -6,6 +6,7 @@ require_once './cases/user/login/index.php';
 require_once './cases/user/get/index.php';
 require_once './cases/post/create/index.php';
 require_once './cases/post/get/index.php';
+require_once './cases/post/delete/index.php';
 require_once './routes/urlHandler.php';
 require_once './routes/router.php';
 
@@ -19,5 +20,6 @@ $router->GET('/post/?author', $getPostsController);
 $router->POST('/user/register', $createUserController);
 
 $router->POST('/post/register', $createPostController);
+$router->DELETE('/post/?id', $deletePostController);
 
 $router->POST('/login', $loginController);

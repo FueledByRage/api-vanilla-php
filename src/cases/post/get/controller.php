@@ -9,7 +9,7 @@ class GetPostsController{
         public GetPosts $getPosts,
     ){}
 
-    function execute($req, $res, $jwt){
+    function execute($req, $res){
         try{
             $author = array_key_exists('author', $req->params) ? $req->params['author'] : null;
             if($author == null){

@@ -24,13 +24,14 @@ class JWT{
             $sign = $this->getSign($header, $payload);
     
             return  json_decode(base64_decode($payload));
-        }catch(Exception $exception){
-
+        }catch(\throwable $exception){
+            throw new Exception('Error decripting token.',406);
         }
     }
     private function getSign($header, $payload){
         $key = 'Um silencio de três partes';
-        return json_encode(hash_hmac('sha256', $header . '.' . $payload, $key, true));
+        $sign = hash_hmac('sha256', $header . '.' . $payload, $key, true); 
+        return $sign;
     }
 }
 

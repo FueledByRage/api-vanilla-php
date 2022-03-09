@@ -3,13 +3,14 @@ require_once './cases/user/get/get.php';
 require_once './entities/user.php';
 require_once './utils/checkKeys.php';
 
+
 class GetController{
 
     function __construct(
         public GetUser $getUser,
     ){}
 
-    function execute($req, $res, $jwt){
+    function execute($req, $res){
         try{
             $username = array_key_exists('username', $req->params) ? $req->params['username'] : null;
             if($username == null){

@@ -2,14 +2,17 @@
 require_once './entities/user.php';
 require 'login.php';
 require_once './utils/checkKeys.php';
+require_once './providers/jwt/jwt.php';
+
 
 class loginController{
     function __construct(
         public Login $login,
-        public CheckKeys $checkKeys
+        public CheckKeys $checkKeys,
+        public JWT $jwt
     ){}
 
-    function execute($req, $res, $jwt){
+    function execute($req, $res){
         try{
             $body = $req->body();
 
@@ -22,7 +25,7 @@ class loginController{
                 $body['password'],
             );
 
-            $token = $jwt->provider(['typ' => 'JWT', 'alg' => 'HS256'],['username' => $user['username']]);
+            $token = $this->jwt->provider(['typ' => 'JWT', 'alg' => 'HS256'],['username' => $user['username']]);
             $res->status(200);
             $res->send(['token' => $token,'username' => $user['username']]);
         }catch(\Throwable $e){

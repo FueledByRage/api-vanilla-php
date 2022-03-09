@@ -11,7 +11,8 @@ class Request{
             $this->$key = $value;
         }
         
-        if($_SERVER['REQUEST_METHOD'] == 'GET')parse_str($this->getParams('http://localhost:8000/'.$_SERVER['REQUEST_URI']), $params);
+        //if($_SERVER['REQUEST_METHOD'] == 'GET' )
+        parse_str($this->getParams('http://localhost:8000/'.$_SERVER['REQUEST_URI']), $params);
 
         $this->params = $params;
     }
