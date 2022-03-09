@@ -10,22 +10,17 @@ class PostMysql implements IPost{
     ){}
 
     function save(Post $post, $author_id){
-        try{
-            $sql = 'INSERT INTO Posts (author_id, author,  body, created_at, videoUrl) VALUES (:author_id, :author, :body, :date, :videoUrl);';
-            
-            $query = $this->connection->prepare($sql);
-            $query->bindValue(":author_id", $author_id);
-            $query->bindValue(":author", $post->author);
-            $query->bindValue(":body", $post->body);
-            $query->bindValue(":date", $post->created_date);
-            $query->bindValue(":videoUrl", $post->videoUrl);
+        $sql = 'INSERT INTO Posts (author_id, author,  body, created_at, videoUrl) VALUES (:author_id, :author, :body, :date, :videoUrl);';
+        
+        $query = $this->connection->prepare($sql);
+        $query->bindValue(":author_id", $author_id);
+        $query->bindValue(":author", $post->author);
+        $query->bindValue(":body", $post->body);
+        $query->bindValue(":date", $post->created_date);
+        $query->bindValue(":videoUrl", $post->videoUrl);
 
-            return $query->execute();
-        }catch(Exception $e){
-            http_response_code(500);
-            echo $e->get_message();
-            die();
-        }
+        if($query->rowCount == 0 ) throw new Exception('Error saving post');
+        return $query->execute();
     }
 
     function get($author, $id){
@@ -42,20 +37,14 @@ class PostMysql implements IPost{
 
 
     function getAll($author){
-        try{
-            $sql = 'SELECT * FROM Posts WHERE author = :author';
-            $data = $this->connection->prepare($sql);
-            $data->bindValue(":author", $author);
-            $data->execute();
-            if($data->rowCount() == 0){
-                throw new Exception("Posts not found for this user.", 404);
-            }
-            return $data->fetchAll();
-        }catch(Exception $e){
-            http_response_code(500);
-            echo $e->getMessage();
-            die();
+        $sql = 'SELECT * FROM Posts WHERE author = :author';
+        $data = $this->connection->prepare($sql);
+        $data->bindValue(":author", $author);
+        $data->execute();
+        if($data->rowCount() == 0){
+            throw new Exception("Posts not found for this user.", 404);
         }
+        return $data->fetchAll();
     }
 
     function delete($id, $username){
