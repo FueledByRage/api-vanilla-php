@@ -49,7 +49,6 @@ class PostMysql implements IPost{
 
     function delete($id, $username){
         $sql = 'DELETE FROM Posts Where id = :id AND author = :author';
-         
         $executeDelete = $this->connection->prepare($sql);
         $executeDelete->bindValue(":id", $id);
         $executeDelete->bindValue(":author", $username);

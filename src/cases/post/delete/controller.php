@@ -22,9 +22,9 @@ class DeleteController{
             $username = $this->jwt->decript($token)->{'username'};
     
             $deleted = $this->delete->execute($req->params['id'], $username);
-    
-            $res->status(200);
-            $res->send();
+            
+            die();
+            
         }catch(\Throwable $e){
             $res->status(500);
             $res->send(['message' => $e->getMessage()]);
